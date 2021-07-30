@@ -1,2 +1,4 @@
 com/UserRegistration/UserRegistrationTest.java
  com.UserRegistration.UserRegistrationTest
+com/UserRegistration/emailValidation.java
+ com.UserRegistration.emailValidation
