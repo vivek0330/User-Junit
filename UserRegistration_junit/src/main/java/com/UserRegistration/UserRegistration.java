@@ -22,16 +22,16 @@ public class UserRegistration {
      * @param name: First and last name to validate.
      */
     public boolean validateName(String name) {
-        String regex = "^[A-Z]{1}[a-z]{2,}$";
-        Pattern pattern = Pattern.compile(regex);
-
-        // Returns false if user does not enter any name.
-        if (name.isEmpty())
-            return false;
-
-        Matcher matcher = pattern.matcher(name);
-        return matcher.matches();
-
+        try {
+            if (name.length() == 0) {
+                throw new userRegistrationException(userRegistrationException.ExceptionType.ENTERED_EMPTY, "First name cannot be empty");
+            }
+            boolean isMatched = Pattern.compile("^[A-Z]{1}[a-z]{2,}$").matcher(name).matches();
+            checkValid(isMatched);
+            return isMatched;
+        } catch (NullPointerException e) {
+            throw new userRegistrationException(userRegistrationException.ExceptionType.ENTERED_NULL, "First name cannot be empty");
+        }
     }
 
     /*
@@ -40,10 +40,19 @@ public class UserRegistration {
      * @param mail: mail to validate.
      */
     public boolean validateEmail(String mail) {
-        String regex = "^[0-9A-Za-z]+(([._+-]{0,1})[0-9A-Za-z]+)*@[0-9A-Za-z]+.[a-z]{2,4}.([a-z]{2,3})*$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(mail);
-        return matcher.matches();
+        try {
+            if (mail.length() == 0) {
+                throw new userRegistrationException(userRegistrationException.ExceptionType.ENTERED_EMPTY, "Email cannot be empty");
+            }
+            boolean isMatched = Pattern.compile(
+                    "^[0-9A-Za-z]+(([._+-]{0,1})[0-9A-Za-z]+)*@[0-9A-Za-z]+.[a-z]{2,4}.([a-z]{2,3})*$")
+                    .matcher(mail).matches();
+            checkValid(isMatched);
+            return isMatched;
+
+        } catch (NullPointerException e) {
+            throw new userRegistrationException(userRegistrationException.ExceptionType.ENTERED_NULL, "email cannot be empty");
+        }
     }
 
     /*
@@ -54,11 +63,16 @@ public class UserRegistration {
      * @param mobileNumber: mobile number to validate.
      */
     public boolean validateMobileNumber(String mobileNumber) {
-        // Space is not used, as console wont accept space.
-        String regex = "^(91)[\\s][0-9]{10}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(mobileNumber);
-        return matcher.matches();
+        try {
+            if (mobileNumber.length() == 0) {
+                throw new userRegistrationException(userRegistrationException.ExceptionType.ENTERED_EMPTY, "Phone Number cannot be empty");
+            }
+            boolean isMatched = Pattern.compile("^(91)[\\s][0-9]{10}$").matcher(mobileNumber).matches();
+            checkValid(isMatched);
+            return isMatched;
+        } catch (NullPointerException e) {
+            throw new userRegistrationException(userRegistrationException.ExceptionType.ENTERED_NULL, "Phone number cannot be empty");
+        }
     }
 
     /*
@@ -71,9 +85,26 @@ public class UserRegistration {
      * @param password: Password to validate.
      */
     public boolean validatePassword(String password) {
-        String regex = ("^(?=.*[0-9])(?=[^@#$%^&+=]*[@#$%^&+=][^@#$%^&+=]*$)(?=.*[a-z])(?=.*[A-Z]).{8,}$");
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
+        try {
+            if (password.length() == 0) {
+                throw new userRegistrationException(userRegistrationException.ExceptionType.ENTERED_EMPTY, "Password cannot be empty");
+            }
+            boolean isMatched = Pattern.compile("^(?=.*[0-9])(?=[^@#$%^&+=]*[@#$%^&+=][^@#$%^&+=]*$)(?=.*[a-z])(?=.*[A-Z]).{8,}$")
+                    .matcher(password).matches();
+            checkValid(isMatched);
+            return isMatched;
+        } catch (NullPointerException e) {
+            throw new userRegistrationException(userRegistrationException.ExceptionType.ENTERED_NULL, "Password cannot be empty");
+        }
     }
+
+    /* Purpose: Method to check whether result is valid or invalid*/
+    public void checkValid(boolean isMatched) {
+        if (isMatched) {
+            System.out.println("valid");
+        } else {
+            System.out.println("invalid");
+        }
+    }
+
 }

@@ -20,7 +20,7 @@ public class UserRegistrationTest {
 
     @Test
     public void givenFirstName_WhenShort_ShouldReturnFalse() {
-        Assert.assertFalse(validator.validateName("en"));
+        Assert.assertFalse(validator.validateName("vmk"));
     }
 
     @Test
@@ -31,12 +31,12 @@ public class UserRegistrationTest {
     // Test cases for last name.
     @Test
     public void givenLastName_WhenValid_ShouldReturnTrue() {
-        Assert.assertTrue(validator.validateName("kmrrv"));
+        Assert.assertTrue(validator.validateName("Bms"));
     }
 
     @Test
     public void givenLastName_WhenStartingNotCapital_ShouldReturnFalse() {
-        Assert.assertFalse(validator.validateName("nknj"));
+        Assert.assertFalse(validator.validateName("bms"));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class UserRegistrationTest {
 
     @Test
     public void givenMail_WithoutMainTld_ShouldReturnFalse() {
-        Assert.assertFalse(validator.validateEmail("abc@gmail"));
+        Assert.assertFalse(validator.validateEmail("abc@gmail.com"));
     }
 
     @Test
@@ -122,7 +122,7 @@ public class UserRegistrationTest {
 
     @Test
     public void givenPassword_WhenNoUpperCase_ShouldReturnFalse() {
-        Assert.assertFalse(validator.validatePassword("abc$defg18"));
+        Assert.assertFalse(validator.validatePassword("abc$defog18"));
     }
 
     @Test
@@ -132,6 +132,97 @@ public class UserRegistrationTest {
 
     @Test
     public void givenPassword_With2SpecialChar_ShouldReturnFalse() {
-        Assert.assertFalse(validator.validatePassword("Abc$$defr1"));
+        Assert.assertFalse(validator.validatePassword("Abc$$defer1"));
+    }
+
+    @Test
+    public void givenFirstName_WhenNull_ShouldReturnException() {
+        try {
+            validator.validateName(null);
+        } catch (userRegistrationException e) {
+            Assert.assertEquals(userRegistrationException.ExceptionType.ENTERED_NULL, e.type);
+        }
+    }
+
+    // Using exceptions.
+    @Test
+    public void givenFirstName_WhenEmpty_ShouldReturnException() {
+        try {
+            validator.validateName("");
+        } catch (userRegistrationException e) {
+            Assert.assertEquals(userRegistrationException.ExceptionType.ENTERED_EMPTY, e.type);
+        }
+    }
+
+    @Test
+    public void givenLastName_WhenNull_ShouldReturnException() {
+        try {
+            validator.validateName(null);
+        } catch (userRegistrationException e) {
+            Assert.assertEquals(userRegistrationException.ExceptionType.ENTERED_NULL, e.type);
+        }
+    }
+
+    @Test
+    public void givenLastName_WhenEmpty_ShouldReturnException() {
+        try {
+            validator.validateName("");
+        } catch (userRegistrationException e) {
+            Assert.assertEquals(userRegistrationException.ExceptionType.ENTERED_EMPTY, e.type);
+        }
+    }
+
+    @Test
+    public void givenEmail_WhenNull_ShouldReturnException() {
+        try {
+            validator.validateEmail(null);
+        } catch (userRegistrationException e) {
+            Assert.assertEquals(userRegistrationException.ExceptionType.ENTERED_NULL, e.type);
+        }
+    }
+
+    @Test
+    public void givenEmail_WhenEmpty_ShouldReturnException() {
+        try {
+            validator.validateEmail("");
+        } catch (userRegistrationException e) {
+            Assert.assertEquals(userRegistrationException.ExceptionType.ENTERED_EMPTY, e.type);
+        }
+    }
+
+    @Test
+    public void givenPhoneNumber_WhenNull_ShouldReturnException() {
+        try {
+            validator.validateMobileNumber(null);
+        } catch (userRegistrationException e) {
+            Assert.assertEquals(userRegistrationException.ExceptionType.ENTERED_NULL, e.type);
+        }
+    }
+
+    @Test
+    public void givenPhoneNumber_WhenEmpty_ShouldReturnException() {
+        try {
+            validator.validateMobileNumber("");
+        } catch (userRegistrationException e) {
+            Assert.assertEquals(userRegistrationException.ExceptionType.ENTERED_EMPTY, e.type);
+        }
+    }
+
+    @Test
+    public void givenPassword_WhenNull_ShouldReturnException() {
+        try {
+            validator.validatePassword(null);
+        } catch (userRegistrationException e) {
+            Assert.assertEquals(userRegistrationException.ExceptionType.ENTERED_NULL, e.type);
+        }
+    }
+
+    @Test
+    public void givenPassword_WhenEmpty_ShouldReturnException() {
+        try {
+            validator.validatePassword("");
+        } catch (userRegistrationException e) {
+            Assert.assertEquals(userRegistrationException.ExceptionType.ENTERED_EMPTY, e.type);
+        }
     }
 }
